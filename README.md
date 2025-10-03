@@ -1,6 +1,6 @@
 # SignalWire Outbound Caller
 
-A simple HTML/JavaScript application for making outbound calls using SignalWire's Call Fabric SDK.
+A single-file HTML application for making outbound calls using SignalWire's Call Fabric API. Everything is contained in one file for maximum simplicity.
 
 ## Features
 
@@ -10,6 +10,7 @@ A simple HTML/JavaScript application for making outbound calls using SignalWire'
 - **Real-time Status**: Live call status updates and error handling
 - **Bootstrap UI**: Clean, responsive interface
 - **Phone Number Formatting**: Automatic E.164 formatting for phone numbers
+- **Single File**: No setup required - everything in one HTML file
 
 ## Usage
 
@@ -62,9 +63,7 @@ The SWML script performs these actions:
 ## File Structure
 
 ```
-outbound-caller.html      # Main HTML interface
-outbound-caller.js        # JavaScript application logic
-call-pstn-html.json       # SWML script definition (auto-deployed)
+outbound-caller.html      # Complete single-file application (HTML + JavaScript)
 README-outbound-caller.md # This documentation
 ```
 
@@ -97,3 +96,4 @@ The application includes comprehensive error handling for:
 3. **Call Failures**: The SWML resource should be created automatically - check connection status messages
 4. **Audio Issues**: Ensure browser has microphone permissions
 5. **CORS Errors**: Serve files from a web server (not file://)
+
