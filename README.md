@@ -97,10 +97,3 @@ The application includes comprehensive error handling for:
 3. **Call Failures**: The SWML resource should be created automatically - check connection status messages
 4. **Audio Issues**: Ensure browser has microphone permissions
 5. **CORS Errors**: Serve files from a web server (not file://)
-
-## Based On
-
-This application combines concepts from:
-- The `new.js` example showing SignalWire client initialization and calling
-- The existing `webphone/` Flask application structure
-- SignalWire's official JavaScript SDK documentation
