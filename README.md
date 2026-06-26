@@ -7,6 +7,7 @@ A single-file HTML application for making outbound calls using SignalWire's Call
 - **Automatic SWML Resource Management**: Automatically checks for and creates the required SWML script resource
 - **Guest Token Authentication**: Automatically creates guest tokens with targeted permissions
 - **Outbound Calling**: Place calls to any phone number via SWML resources
+- **Call Recording**: Calls are automatically recorded in stereo WAV format
 - **Real-time Status**: Live call status updates and error handling
 - **Bootstrap UI**: Clean, responsive interface
 - **Phone Number Formatting**: Automatic E.164 formatting for phone numbers
@@ -14,7 +15,7 @@ A single-file HTML application for making outbound calls using SignalWire's Call
 
 ## Usage
 
-1. **Open the Application**: Open `outbound-caller.html` in a web browser
+1. **Open the Application**: Open `outbound.html` in a web browser
 2. **Configure Credentials**:
    - **Project ID**: Your SignalWire project ID
    - **Space Name**: Your SignalWire space (e.g., `yourspace.signalwire.com`)
@@ -43,28 +44,27 @@ The application uses SignalWire's REST API to:
    - Retrieves the address UUID for the SWML resource
 4. **Create Guest Token**: `POST /api/fabric/guests/tokens`
    - Creates a temporary authentication token with specific address permissions
-   - Uses Basic Auth with Project ID and API Token
 5. **Initialize Client**: Uses the SignalWire JavaScript SDK
-   - Connects using project ID and guest token
+   - Connects using `StaticCredentialProvider` with the guest token
 6. **Make Calls**: Uses the `client.dial()` method
-   - Passes user variables to SWML script
-   - Handles call state changes and events
+   - Passes user variables to the SWML script
+   - Handles call state via `status$` and `remoteStream$` observables
 
 ## SWML Integration
 
-The application works with SWML (SignalWire Markup Language) scripts that handle call logic. The automatically created SWML script receives:
+The application automatically creates a SWML script resource named "call pstn html" that handles call logic. The script receives:
 
 - `destination_number`: The formatted phone number to call
 
 The SWML script performs these actions:
-1. Records the call in WAV format
+1. Records the call in stereo WAV format
 2. Connects to the specified destination number
 
 ## File Structure
 
 ```
-outbound-caller.html      # Complete single-file application (HTML + JavaScript)
-README-outbound-caller.md # This documentation
+outbound.html   # Complete single-file application (HTML + JavaScript)
+README.md       # This documentation
 ```
 
 ## Error Handling
@@ -93,7 +93,6 @@ The application includes comprehensive error handling for:
 
 1. **Connection Issues**: Verify space name, project ID, and API token
 2. **Resource Creation Failures**: Ensure your API token has permissions to create SWML resources
-3. **Call Failures**: The SWML resource should be created automatically - check connection status messages
+3. **Call Failures**: The SWML resource is created automatically on first connect — delete and reconnect to regenerate it
 4. **Audio Issues**: Ensure browser has microphone permissions
 5. **CORS Errors**: Serve files from a web server (not file://)
-
